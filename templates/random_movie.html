@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Random Movies</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <div class="header">
+        <h1>Random Movies</h1>
+    </div>
+
+    <div class="container">
+        <!-- Movie 1 -->
+        <div class="movie-card">
+            <div class="card-inner">
+                <div class="card-front">
+                    <img src="https://image.tmdb.org/t/p/w500{{ movie[0]['poster_path'] }}" alt="{{ movie[0]['title'] }}">
+                    <div class="card-content">
+                        <h2>{{ movie[0]['title'] }}</h2>
+                        <div class="movie-info">
+                            <p>{{ movie[0]['release_date'] }}</p>
+                            <div class="movie-rating">
+                                <span class="star">&#9733;</span>
+                                <span>{{ movie[0]['vote_average'] }}</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-back">
+                    <p>{{ movie[0]['overview'] }}</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Movie 2 -->
+        <div class="movie-card">
+            <div class="card-inner">
+                <div class="card-front">
+                    <img src="https://image.tmdb.org/t/p/w500{{ movie[1]['poster_path'] }}" alt="{{ movie[1]['title'] }}">
+                    <div class="card-content">
+                        <h2>{{ movie[1]['title'] }}</h2>
+                        <div class="movie-info">
+                            <p>{{ movie[1]['release_date'] }}</p>
+                            <div class="movie-rating">
+                                <span class="star">&#9733;</span>
+                                <span>{{ movie[1]['vote_average'] }}</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-back">
+                    <p>{{ movie[1]['overview'] }}</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Movie 3 -->
+        <div class="movie-card">
+            <div class="card-inner">
+                <div class="card-front">
+                    <img src="https://image.tmdb.org/t/p/w500{{ movie[2]['poster_path'] }}" alt="{{ movie[2]['title'] }}">
+                    <div class="card-content">
+                        <h2>{{ movie[2]['title'] }}</h2>
+                        <div class="movie-info">
+                            <p>{{ movie[2]['release_date'] }}</p>
+                            <div class="movie-rating">
+                                <span class="star">&#9733;</span>
+                                <span>{{ movie[2]['vote_average'] }}</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-back">
+                    <p>{{ movie[2]['overview'] }}</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Movie 4 -->
+        <div class="movie-card">
+            <div class="card-inner">
+                <div class="card-front">
+                    <img src="https://image.tmdb.org/t/p/w500{{ movie[3]['poster_path'] }}" alt="{{ movie[3]['title'] }}">
+                    <div class="card-content">
+                        <h2>{{ movie[3]['title'] }}</h2>
+                        <div class="movie-info">
+                            <p>{{ movie[3]['release_date'] }}</p>
+                            <div class="movie-rating">
+                                <span class="star">&#9733;</span>
+                                <span>{{ movie[3]['vote_average'] }}</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-back">
+                    <p>{{ movie[3]['overview'] }}</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Movie 5 -->
+        <div class="movie-card">
+            <div class="card-inner">
+                <div class="card-front">
+                    <img src="https://image.tmdb.org/t/p/w500{{ movie[4]['poster_path'] }}" alt="{{ movie[4]['title'] }}">
+                    <div class="card-content">
+                        <h2>{{ movie[4]['title'] }}</h2>
+                        <div class="movie-info">
+                            <p>{{ movie[4]['release_date'] }}</p>
+                            <div class="movie-rating">
+                                <span class="star">&#9733;</span>
+                                <span>{{ movie[4]['vote_average'] }}</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-back">
+                    <p>{{ movie[4]['overview'] }}</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Movie 6 -->
+        <div class="movie-card">
+            <div class="card-inner">
+                <div class="card-front">
+                    <img src="https://image.tmdb.org/t/p/w500{{ movie[5]['poster_path'] }}" alt="{{ movie[5]['title'] }}">
+                    <div class="card-content">
+                        <h2>{{ movie[5]['title'] }}</h2>
+                        <div class="movie-info">
+                            <p>{{ movie[5]['release_date'] }}</p>
+                            <div class="movie-rating">
+                                <span class="star">&#9733;</span>
+                                <span>{{ movie[5]['vote_average'] }}</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-back">
+                    <p>{{ movie[5]['overview'] }}</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Movie 7 -->
+        <div class="movie-card">
+            <div class="card-inner">
+                <div class="card-front">
+                    <img src="https://image.tmdb.org/t/p/w500{{ movie[6]['poster_path'] }}" alt="{{ movie[6]['title'] }}">
+                    <div class="card-content">
+                        <h2>{{ movie[6]['title'] }}</h2>
+                        <div class="movie-info">
+                            <p>{{ movie[6]['release_date'] }}</p>
+                            <div class="movie-rating">
+                                <span class="star">&#9733;</span>
+                                <span>{{ movie[6]['vote_average'] }}</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-back">
+                    <p>{{ movie[6]['overview'] }}</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Movie 8 -->
+        <div class="movie-card">
+            <div class="card-inner">
+                <div class="card-front">
+                    <img src="https://image.tmdb.org/t/p/w500{{ movie[7]['poster_path'] }}" alt="{{ movie[7]['title'] }}">
+                    <div class="card-content">
+                        <h2>{{ movie[7]['title'] }}</h2>
+                        <div class="movie-info">
+                            <p>{{ movie[7]['release_date'] }}</p>
+                            <div class="movie-rating">
+                                <span class="star">&#9733;</span>
+                                <span>{{ movie[7]['vote_average'] }}</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-back">
+                    <p>{{ movie[7]['overview'] }}</p>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <a href="{{ url_for('random_movie') }}" class="generate-button">Generate Another Movie</a>
+</body>
+</html>

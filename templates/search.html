@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search Result - Movie Finder</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='home.css') }}">
+</head>
+<body>
+
+    <!-- Main container for the search page -->
+    <div class="main-container">
+        <!-- Header Section -->
+        <header class="header">
+            <h1>Movie Search Result</h1>
+            <p>Enter a movie to search or see the result below:</p>
+        </header>
+
+        <!-- Back Button -->
+        <div class="back-button">
+            <a href="/" class="back-link">Back to Home</a>
+        </div>
+
+        <!-- Search Form -->
+        <div class="search-bar">
+            <form action="{{ url_for('search_movie') }}" method="get">
+                <input type="text" name="query" placeholder="Search for a movie..." required>
+                <button type="submit">Search</button>
+            </form>
+        </div>
+
+        <!-- If No Movie Found, Display Search Bar -->
+        {% if not movies %}
+            <div class="no-movie-found">
+                <p>No movies found. Please try searching again.</p>
+            </div>
+        {% else %}
+            <!-- Single Movie Card Section -->
+            <div class="movie-card-container">
+                <div class="movie-card">
+                    <div class="movie-image">
+                        <img src="{{ movie.poster_path }}" alt="{{ movie.title }}">
+                    </div>
+                    <div class="movie-info">
+                        <h3 class="movie-title">{{ movie.title }}</h3>
+                        <p class="release-date">Release Date: {{ movie.release_date }}</p>
+                        <p class="rating">Rating: {{ movie.vote_average }}/10</p>
+                    </div>
+                    <div class="movie-description">
+                        <p>{{ movie.overview }}</p>
+                    </div>
+                </div>
+            </div>
+        {% endif %}
+    </div>
+
+</body>
+</html>
