@@ -10,16 +10,36 @@ from movies import Movies
 
 
 
-app = Flask(__name__)
 class Base(DeclarativeBase):
     pass
 
+app = Flask(__name__)
+#Gives flask a secret key
+app.secret_key = secrets.token_urlsafe(24)
 
 #Initilize the flask  and the db objects
-app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///users"
 app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///userfav"
 db = SQLAlchemy(model_class= Base)
 db.init_app(app)
+
+#Gives flask a secret key
+app.secret_key = secrets.token_urlsafe(24)
+
+
+
+#Login initialize
+login_manager = LoginManager()
+login_manager.init_app(app)
+login_manager.login_view = "login" #Redirect users to the login page if the route is protected
+
+#returns all the user data buy using the PK
+@login_manager.user_loader
+def login_user(user_id):
+    return db.session.get(Users, user_id)
+
+
+
+
 
 #Creates the db for the user info if they want to login
 class Users(db.Model):
@@ -52,13 +72,17 @@ with app.app_context():
 
 
 
+
+
+
+
 #Home page
 @app.route("/")
 def home():
 
 
-
     return render_template("index.html")
+
 
 
 @app.route("/register", methods= ["GET", "POST"])
@@ -69,9 +93,8 @@ def register():
         email = request.form.get("email")
 
         result = db.session.execute(db.select(Users).where(Users.email == email)).scalar()
-        user = result.email
 
-        if user == email:
+        if result is not None and result.email == email:
             flash("You already have an account registered")
             time.sleep(2)
             return redirect(url_for("login"))
@@ -101,74 +124,85 @@ def login():
         #checks to see if the user is in the database
         result = db.session.execute(db.select(Users).where(Users.email == email))
         user = result.scalar()
-        if not user:
-            flash("Email don't exist. Create an account first")
-            return render_template(url_for("register"))
+        check_password = check_password_hash(user.password, password)
 
-        #TODO check the hashpassword with the inputted password
-        # session["email"] = result.email
-        # session["username"] = result.name
+        if check_password and user:
+            last_page = request.args.get("next")
+            login_user(user.id)
+            #TODO when login is set up correctly change the return value
+            # return redirect(url_for("next") or redirect("dashboard"))
+            return jsonify(successful= "You have been logged in successfully")
 
-        return jsonify(success= "Successfully logged in")
+        else:
+            return jsonify(error= "failed to login")
+                # flash("Email don't exist. Create an account first")
+                # return render_template(url_for("register"))
+    else:
+
+        return jsonify(page= "loaded the login page")
+
+
+
+
+@app.route("/logout", methods= ["GET", "POST"])
+def logout():
+
+    if request.method == "POST":
+        logout_user()
+        return jsonify(logout= "You have been logged out")
+        # return redirect(url_for("login"))
+
+    return jsonify(loaded= "loaded logout page")
         
 
 
 
 
-    return "Get request"
-
 #This route will generate 8 random movies from  a genre
 @app.route("/random_movie", methods= ["GET", "POST", "DELETE"])
 def random_movie():
 
-    #If the user wants to add a favorite movie to their list
-    if request.method == "POST":
-        movie = request.form.get("movie")
-        image = request.form.get("image")
-        release_date = request.form.get("release_date")
-        rating = request.form.get("rating")
+    if current_user.is_authenticated:
+        #If the user wants to add a favorite movie to their list
+        if request.method == "POST":
+            movie = request.form.get("movie")
+            image = request.form.get("image")
+            release_date = request.form.get("release_date")
+            rating = request.form.get("rating")
 
-        #Grab the user_id so the fav movie can be saved correctly
-        email = request.form.get("email")
-        result = db.session.execute(db.select(Users).where(Users.email == email)).scalar()
+            result = db.session.execute(db.select(UserFav).where(UserFav == current_user.id)).scalars()
 
-
-        #Todo uncomment when done testing the API's
-        # user = session["username"]
-        # email = session["email"]
-        if result is not None:
-            user = result.id
-            new_fav_movie = UserFav(user_id= user, movie= movie, image= image, rating= rating, release_date= release_date)
-            db.session.add(new_fav_movie)
-            db.session.commit()
+            if result is not None and movie not in result.movie:
+                new_fav_movie = UserFav(user_id= current_user.id, movie= movie, image= image, rating= rating, release_date= release_date)
+                db.session.add(new_fav_movie)
+                db.session.commit()
 
 
-            #Todo when the html is ready change the return to somthing else -----------------------
-            return jsonify(success= "The movie was added to your favorites")
-        else:
-            return jsonify(error= "User not found"), 404
+                #Todo when the html is ready change the return to somthing else -----------------------
+                return jsonify(success= "The movie was added to your favorites")
+            else:
+                return jsonify(error= "User not found"), 404
 
 
 
-    #Takes the movie the user favorite and
-    elif request.method == "DELETE":
-        movie = request.form.get("movie")
+        #Takes the movie the user favorite and
+        elif request.method == "DELETE":
+            movie = request.form.get("movie")
 
-        # Grab the user_id so the fav movie can be saved correctly
-        email = request.form.get("email")
-        user_result = db.session.execute(db.select(Users).where(Users.email == email)).scalar()
-        userfav_result = db.session.execute(db.select(UserFav).where(UserFav.id == user_result.id)).scalar()
+            # Grab the user_id so the fav movie can be saved correctly
+            email = request.form.get("email")
+            user_result = current_user.id
+            userfav_result = db.session.execute(db.select(UserFav).where(UserFav.id == user_result)).scalar()
 
-        if userfav_result:
-            result = db.session.execute(db.select(UserFav).where(UserFav.id == userfav_result.id)).scalar()
-            delete_movie = result.movie
-            print(delete_movie)
-            # db.session.delete(deleted_movie)
-            # db.session.commit()
+            if userfav_result:
+                delete_movie = userfav_result.movie
+                print(delete_movie)
+                # db.session.delete(deleted_movie)
+                # db.session.commit()
 
-            return jsonify(success= "Your movie was successfully deleted")
-        else:
-            return jsonify(error= "Movie dont exist in your favorites")
+                return jsonify(success= "Your movie was successfully deleted")
+            else:
+                return jsonify(error= "Movie dont exist in your favorites")
 
     #returns random movies by genre
     mov = Movies()
@@ -177,8 +211,8 @@ def random_movie():
     print("error")
 
 
-
     return render_template("random_movie.html", movie= movie)
+
 
 
 @app.route("/search", methods= ["GET", "POST"])
@@ -192,6 +226,11 @@ def search_movie():
 
 
 
+@app.route("/dashboard", methods= ["GET"])
+@login_required
+def dashboard():
+
+    return jsonify(success= f"Hello: {current_user.name}. Your Id is {current_user.id}")
 
 
 
@@ -210,10 +249,5 @@ def search_movie():
 
 
 
-
-
-
-
-
-if __name__ == "__main__":
+if __name__ == "__main__":  #Checkt to see if the program is running locally
     app.run(debug= True)
