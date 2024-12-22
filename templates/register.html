@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Register{% endblock %}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='register.css') }}">
+</head>
+<body>
+    {% block content %}
+    <div class="register-container">
+        <h1 class="register-title">Create Your Account</h1>
+        <form action="{{ url_for('register') }}" method="post" class="register-form">
+            <div class="form-group">
+                <label for="name" class="form-label">Name</label>
+                <input type="text" id="name" name="name" class="form-input" placeholder="Enter your name" required />
+            </div>
+            <div class="form-group">
+                <label for="email" class="form-label">Email</label>
+                <input type="email" id="email" name="email" class="form-input" placeholder="Enter your email" required />
+            </div>
+            <div class="form-group">
+                <label for="password" class="form-label">Password</label>
+                <input type="password" id="password" name="password" class="form-input" placeholder="Create a password" required />
+            </div>
+            <button type="submit" class="btn-primary">Sign Up</button>
+        </form>
+    </div>
+    {% endblock %}
+</body>
+</html>

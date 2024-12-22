@@ -114,7 +114,6 @@ class Movies:
         data = response.json()
 
         movie_list = data
-        print(movie_list)
 
         for i, movie in enumerate(data["results"]):
             movie_dict[i] = {
