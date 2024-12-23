@@ -79,9 +79,14 @@ with app.app_context():
 #Home page
 @app.route("/")
 def home():
+    if current_user.is_authenticated:
+        print(current_user.username)
 
-
-    return render_template("index.html")
+    return render_template(
+        "index.html",
+        user=current_user.is_authenticated,
+        username=current_user.username if current_user.is_authenticated else None
+    )
 
 
 
@@ -112,34 +117,32 @@ def register():
     return render_template("register.html")
 
 
-
-
 @app.route("/login", methods= ["POST", "GET"])
 def login():
-
     if request.method == "POST":
         email = request.form.get("email")
         password = request.form.get("password")
 
-        #checks to see if the user is in the database
+        # Check if the user is in the database
         result = db.session.execute(db.select(Users).where(Users.email == email))
         user = result.scalar()
-        check_password = check_password_hash(user.password, password)
 
-        if check_password and user:
-            last_page = request.args.get("next")
+        if user and check_password_hash(user.password, password):
+            # Log the user in
             login_user(user.id)
-            #TODO when login is set up correctly change the return value
-            # return redirect(url_for("next") or redirect("dashboard"))
-            return jsonify(successful= "You have been logged in successfully")
-
+            # Redirect to the homepage after login
+            flash("You have successfully logged in!")
+            time.sleep(1)
+            return redirect(url_for("home"))
         else:
-            return jsonify(error= "failed to login")
-                # flash("Email don't exist. Create an account first")
+            flash("Invalid email or password.")
+            return redirect(url_for("login"))
+
+            # flash("Email don't exist. Create an account first")
                 # return render_template(url_for("register"))
     else:
 
-        return jsonify(page= "loaded the login page")
+        return render_template("login.html")
 
 
 

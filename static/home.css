@@ -1,109 +1,74 @@
-/* General body styling */
+/* General reset and background */
 body {
-    font-family: 'Arial', sans-serif;
-    background: linear-gradient(to right, #ff7e5f, #feb47b);  /* Beautiful gradient background */
     margin: 0;
     padding: 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
+    font-family: Arial, sans-serif;
+    background-color: #2f2f2f; /* Dark background for a professional look */
+    color: #f1f1f1; /* Light text color for contrast */
 }
 
-/* Main container for centering the content */
+/* Main container style */
 .main-container {
-    text-align: center;
-    color: white;
-    width: 100%;
-    max-width: 1200px;
-    padding: 20px;
-    background: rgba(0, 0, 0, 0.6);  /* Dark overlay behind content */
-    border-radius: 15px;
-    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
-}
-
-/* Header section */
-.header {
-    margin-bottom: 30px;
-}
-
-.header h1 {
-    font-size: 3.5em;
-    margin: 0;
-    color: #ffffff;
-}
-
-.header p {
-    font-size: 1.2em;
-    color: #f1f1f1;
-    margin-top: 10px;
-}
-
-/* Search bar styles */
-.search-container {
-    margin: 20px 0;
-}
-
-.search-form {
     display: flex;
-    justify-content: center;
+    flex-direction: column;
     align-items: center;
+    justify-content: center;
+    min-height: 100vh; /* Full viewport height */
+}
+
+/* Welcome message style */
+.welcome-message {
+    font-size: 24px;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+/* Search form section */
+.search-container {
+    margin-top: 20px;
+    padding: 15px;
+    background-color: #3a3a3a;
+    border-radius: 8px;
+    width: 300px;
 }
 
 .search-form input[type="text"] {
-    padding: 12px;
-    width: 300px;
-    border-radius: 50px;
+    padding: 10px;
+    font-size: 16px;
+    width: 80%;
+    margin-bottom: 10px;
     border: none;
-    font-size: 1.1em;
-    margin-right: 15px;
-    transition: all 0.3s ease;
+    border-radius: 5px;
 }
 
-.search-form input[type="text"]:focus {
-    outline: none;
-    box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
-}
-
-.search-button {
-    background-color: #f7df00;
-    color: #1c1c1c;
-    padding: 12px 30px;
-    font-size: 1.1em;
-    font-weight: bold;
-    border-radius: 50px;
+.search-form button {
+    padding: 10px 15px;
+    background-color: #4CAF50;
+    color: white;
     border: none;
+    border-radius: 5px;
     cursor: pointer;
-    transition: background-color 0.3s ease, transform 0.3s ease;
+    width: 100%;
 }
 
-.search-button:hover {
-    background-color: #e1c200;
-    transform: scale(1.05);
+.search-form button:hover {
+    background-color: #45a049;
 }
 
-/* Random Movie Generate Button Styling */
-.generate-section {
-    margin-top: 30px;
-}
-
-.generate-button {
-    display: inline-block;
-    background-color: #f7df00;
-    color: #1c1c1c;
-    font-size: 1.2em;
-    font-weight: 600;
-    padding: 15px 30px;
-    text-decoration: none;
-    border-radius: 50px;
-    margin-top: 30px;
+/* Authentication Bubbles (Login/Logout) */
+.logout-container {
+    margin-top: 20px;
     text-align: center;
-    transition: background-color 0.3s ease, transform 0.3s ease;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-    position: relative;
 }
 
-.generate-button:hover {
-    background-color: #e1c200;
-    transform: scale(1.05);
+.logout-button {
+    background-color: #FF4C4C;
+    color: white;
+    padding: 10px;
+    text-decoration: none;
+    border-radius: 5px;
+}
+
+.logout-button:hover {
+    background-color: #e43e3e;
 }
