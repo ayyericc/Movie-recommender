@@ -6,15 +6,6 @@ TMDB_READ_ACCESS = "eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI2MzEwZmJhMDhmMTg3MmRjMDU2N2Q
 TMDB_URL = 'https://api.themoviedb.org/3/discover/movie'
 
 
-OMDB_API_KEY = "31453b08"
-OMDB_URL = "http://www.omdbapi.com/"
-
-PERAMS = {
-    "apikey": OMDB_API_KEY,
-    "s": "John Wick",
-    "type": "Movie",
-}
-
 genre_dict = {
     "Action": 28,
     "Adventure": 12,
