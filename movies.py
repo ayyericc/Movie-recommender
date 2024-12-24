@@ -1,8 +1,8 @@
 import requests
 import random
 
-TMDB_APIKEY = "6310fba08f1872dc0567d5f6d52ec77f"
-TMDB_READ_ACCESS = "eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI2MzEwZmJhMDhmMTg3MmRjMDU2N2Q1ZjZkNTJlYzc3ZiIsIm5iZiI6MTczNDc1MjU0My44MzksInN1YiI6IjY3NjYzOTFmNzE2ODBiODJhZTkwZTc3YiIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.mX9zcL1p6apu7cyHunumY5gZQuT0HeG7AGtJ2uYkfj4"
+TMDB_APIKEY = "Your Key"
+TMDB_READ_ACCESS = "Your Key"
 TMDB_URL = 'https://api.themoviedb.org/3/discover/movie'
 
 
